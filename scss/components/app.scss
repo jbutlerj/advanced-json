@@ -1,0 +1,23 @@
+#app {
+
+    margin: 50px;
+
+    ul {
+
+        li {
+            list-style: none;
+            cursor: pointer;
+            height: 50px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            background-color: lightcyan;
+            text-decoration: none;
+            color: #000;
+        }
+
+        li:nth-child(odd) {
+            background-color: lightblue;
+        }
+    }
+}

@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-bottom: 16px;
+}
+
+html, body {
+  height: 100%;
+}
+
+#app {
+  margin: 50px;
+}
+#app ul li {
+  list-style: none;
+  cursor: pointer;
+  height: 50px;
+  padding: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: lightcyan;
+  text-decoration: none;
+  color: #000;
+}
+#app ul li:nth-child(odd) {
+  background-color: lightblue;
+}
