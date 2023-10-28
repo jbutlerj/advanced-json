@@ -552,19 +552,37 @@ var LISTS = [
     },
 ];
 
+// function export to inject html
+export function changeRoute(){
+    // declare varibables
+    let hashTag = window.location.hash;
+    let pageID = hashTag.replace("#", "");
+
+    // change content
+    if(pageID == "detail"){
+      $.get(`pages/detail/detail.html`, function(data){
+      $("#app").html(data);
+      });
+    }else{
+      $.get(`pages/home/home.html`, function(data){
+      $("#app").html(data);
+      });
+    }
+}
 
 function initListeners() {
-    $("ul li").click(function (e) { 
+    $("#app #home ul li").click(function (e) { 
         let listID = e.currentTarget.id; //click listener - captures element ID
+
+        console.log(listID);
+        
         loadListItems(listID); // passes ID to loadListItems function in model.js
-        $(window).on("hashchange", changeRoute);
-        changeRoute();
     });
 }
 
 function addBackListener (){
     $(".backBTN").click(function () {  
-        $("#home").html(""); // clears html within #app
+        $("#app").html(""); // clears html within #app
         loadLists(); // runs loadList
     });
 }
@@ -618,8 +636,9 @@ function loadListItems(listID) {
     <div class="addItemBTN">Add Item</div>
     </div>`; //add and back buttons
     
-    $("#detail").html(listString); //writes listString var to #app
-
+    $.get(`pages/detail/detail.html`, function(){
+        $("#detail").html(listString);
+        });
     //invoking functions
     addBackListener();
     itemChecked(listIndex);
@@ -634,25 +653,11 @@ export function loadLists() {
         <span class="right">Items: ${list.listItems.length}</span></li>`;
     });
     listString += "</ul>";
-    $("#home").html(listString);
+    
+    
+    $.get(`pages/home/home.html`, function(){
+        $("#home").html(listString);
+        });
 
     initListeners();
-}
-
-// function export to inject html
-export function changeRoute(){
-    // declare varibables
-    let hashTag = window.location.hash;
-    let pageID = hashTag.replace("#", "");
-
-    // change content
-    if(pageID == "detail"){
-      $.get(`pages/detail/detail.html`, function(data){
-      $("#app").html(data);
-      });
-    }else{
-      $.get(`pages/home/home.html`, function(data){
-      $("#app").html(data);
-      });
-    }
 }
