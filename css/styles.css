@@ -40,3 +40,8 @@ html, body {
 #app ul li:nth-child(odd) {
   background-color: lightblue;
 }
+#app .back {
+  width: 100px;
+  border: solid 1px #000;
+  cursor: pointer;
+}

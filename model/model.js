@@ -552,15 +552,34 @@ var LISTS = [
     },
 ];
 
-export function loadListItems(listID) {
+// declaring variable
+var listType = "#app ul li";
+
+function initListeners() {
+    $(listType).click(function (e) { 
+        let listID = e.currentTarget.id; //click listener - captures element ID
+        loadListItems(listID); // passes ID to loadListItems function in model.js
+    });
+}
+
+function addBackListener (){
+    $(".back").click(function () {  
+        $("#app").html(""); // clears html within #app
+        loadLists(); // runs loadList
+    });
+}
+
+function loadListItems(listID) {
     let listIndex = listID.replace("listID-", ""); // converts captured ID to list index value
     let listSting = "<ul>";
     $.each(LISTS[listIndex].listItems, function(idx, listItem) {
         listSting += `<li id="${idx}">${listItem.name}</li>`;
     });
-    listSting += "</ul> <button id=\"back\">BACK</button>";
+    listSting += "</ul> <div class=\"back\">BACK</div>";
     
     $("#app").html(listSting);
+
+    addBackListener();
 }
 
 export function loadLists() {
@@ -570,4 +589,6 @@ export function loadLists() {
     });
     listSting += "</ul>";
     $("#app").html(listSting);
+
+    initListeners();
 }
