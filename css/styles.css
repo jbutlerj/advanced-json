@@ -19,8 +19,33 @@ html, body {
   height: 100%;
 }
 
+header {
+  width: 60%;
+  height: 100px;
+  min-width: 500px;
+  margin: 0 auto;
+  background-color: #F08080;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+header h1 {
+  font-family: sans-serif;
+  font-size: 66px;
+  color: #111;
+}
+
 #app {
-  margin: 50px;
+  width: 60%;
+  height: 100px;
+  min-width: 500px;
+  margin: 50px auto;
 }
 #app ul li {
   list-style: none;
@@ -36,6 +61,16 @@ html, body {
   background-color: lightcyan;
   text-decoration: none;
   color: #000;
+  position: relative;
+}
+#app ul li .right {
+  position: absolute;
+  right: 20px;
+}
+#app ul li .deleteBTN {
+  position: absolute;
+  right: 20px;
+  cursor: pointer;
 }
 #app ul li input {
   margin: 0 20px;
@@ -46,7 +81,7 @@ html, body {
 #app ul li.strike {
   text-decoration: line-through;
 }
-#app .back {
+#app .backBTN, #app .addItemBTN {
   width: 100px;
   height: 50px;
   margin: 20px auto;

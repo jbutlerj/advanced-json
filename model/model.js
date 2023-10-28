@@ -1,4 +1,4 @@
-// declaring variables
+// JSON object
 var LISTS = [
     {
         name: "Groceries",
@@ -554,18 +554,42 @@ var LISTS = [
 
 
 function initListeners() {
-    $("#app ul li").click(function (e) { 
+    $("ul li").click(function (e) { 
         let listID = e.currentTarget.id; //click listener - captures element ID
         loadListItems(listID); // passes ID to loadListItems function in model.js
+        $(window).on("hashchange", changeRoute);
+        changeRoute();
     });
 }
 
 function addBackListener (){
-    $(".back").click(function () {  
-        $("#app").html(""); // clears html within #app
+    $(".backBTN").click(function () {  
+        $("#home").html(""); // clears html within #app
         loadLists(); // runs loadList
     });
 }
+
+function addItem(listIndex){
+    $(".addItemBTN").click(function () { //listens for add button click
+        let newItemName = $("#addItem").val(); //captures value from input
+        let newItemObj = {
+            name: newItemName,
+            checked: false,
+            category: "",
+        }; //creates new obj
+        LISTS[listIndex].listItems.push(newItemObj); //adds object to existing array
+        loadListItems(listIndex); //reloads lists
+    });
+}
+
+function deleteItem(listIndex){
+    $(".deleteBTN").click(function () { //listens for delete btn click
+        let itemIndex = $(this).attr('id'); // assigns element id to variable
+        LISTS[listIndex].listItems.splice(itemIndex,1); //deletes object
+        loadListItems(listIndex); //reloads lists
+    }   
+)};
+   
 
 function itemChecked (listIndex){
     $('input:checkbox').change(
@@ -579,25 +603,56 @@ function itemChecked (listIndex){
 
 function loadListItems(listID) {
     let listIndex = listID.replace("listID-", ""); // converts captured ID to list index value
-    let listString = "<ul>";
+    let listString = `<ul>`;
     $.each(LISTS[listIndex].listItems, function(idx, listItem) {
-        listString += `<li id="${idx}"><input  type="checkbox" id="${idx}" name="${listItem.name}">${listItem.name}</li>`;
-    });
-    listString += `</ul> <div class=\"back\">BACK</div>`;
+        listString += `
+        <li id="${idx}" class="${listItem.checked ? "strike" : ""}" >
+        <input ${listItem.checked ? "checked" : ""}  type="checkbox" id="${idx}" name="${listItem.name}">
+        <span>${listItem.name}</span>
+        <span id="${idx}" class="deleteBTN">Delete</span></li>`;
+    }); //adds stike class to li, adds checked property to input, houses delete button
+    listString += `</ul>
+    <div class="backBTN">BACK</div>
+    <div class="addItemInput">
+    <input id="addItem" type="text">
+    <div class="addItemBTN">Add Item</div>
+    </div>`; //add and back buttons
     
-    $("#app").html(listString);
+    $("#detail").html(listString); //writes listString var to #app
 
+    //invoking functions
     addBackListener();
     itemChecked(listIndex);
+    addItem(listIndex);
+    deleteItem(listIndex);
 }
 
 export function loadLists() {
     let listString = "<ul>";
     $.each(LISTS, function(idx, list) {
-        listString += `<li id="listID-${idx}">${list.name}</li>`;
+        listString += `<li id="listID-${idx}">${list.name}
+        <span class="right">Items: ${list.listItems.length}</span></li>`;
     });
     listString += "</ul>";
-    $("#app").html(listString);
+    $("#home").html(listString);
 
     initListeners();
+}
+
+// function export to inject html
+export function changeRoute(){
+    // declare varibables
+    let hashTag = window.location.hash;
+    let pageID = hashTag.replace("#", "");
+
+    // change content
+    if(pageID == "detail"){
+      $.get(`pages/detail/detail.html`, function(data){
+      $("#app").html(data);
+      });
+    }else{
+      $.get(`pages/home/home.html`, function(data){
+      $("#app").html(data);
+      });
+    }
 }
