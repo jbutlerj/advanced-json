@@ -552,11 +552,9 @@ var LISTS = [
     },
 ];
 
-// declaring variable
-var listType = "#app ul li";
 
 function initListeners() {
-    $(listType).click(function (e) { 
+    $("#app ul li").click(function (e) { 
         let listID = e.currentTarget.id; //click listener - captures element ID
         loadListItems(listID); // passes ID to loadListItems function in model.js
     });
@@ -569,26 +567,37 @@ function addBackListener (){
     });
 }
 
+function itemChecked (listIndex){
+    $('input:checkbox').change(
+        function(){ // listens for checkbox
+            $(this).parent().toggleClass("strike"); // adds strike class to parent element
+            let itemIndex = $(this).attr('id'); // assigns element id to variable
+            let checkedValue = !LISTS[listIndex].listItems[itemIndex].checked; // assigns current checked state of item to variable
+            LISTS[listIndex].listItems[itemIndex].checked = checkedValue; // changes stored checked state
+        });
+}
+
 function loadListItems(listID) {
     let listIndex = listID.replace("listID-", ""); // converts captured ID to list index value
-    let listSting = "<ul>";
+    let listString = "<ul>";
     $.each(LISTS[listIndex].listItems, function(idx, listItem) {
-        listSting += `<li id="${idx}">${listItem.name}</li>`;
+        listString += `<li id="${idx}"><input  type="checkbox" id="${idx}" name="${listItem.name}">${listItem.name}</li>`;
     });
-    listSting += "</ul> <div class=\"back\">BACK</div>";
+    listString += `</ul> <div class=\"back\">BACK</div>`;
     
-    $("#app").html(listSting);
+    $("#app").html(listString);
 
     addBackListener();
+    itemChecked(listIndex);
 }
 
 export function loadLists() {
-    let listSting = "<ul>";
+    let listString = "<ul>";
     $.each(LISTS, function(idx, list) {
-        listSting += `<li id="listID-${idx}">${list.name}</li>`;
+        listString += `<li id="listID-${idx}">${list.name}</li>`;
     });
-    listSting += "</ul>";
-    $("#app").html(listSting);
+    listString += "</ul>";
+    $("#app").html(listString);
 
     initListeners();
 }
