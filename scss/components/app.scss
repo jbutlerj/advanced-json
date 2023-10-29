@@ -1,8 +1,8 @@
 #app {
     width: 60%;
-    height: 100px;
+    min-height: 100px;
     min-width: 500px;
-    margin: 50px auto;
+    margin: 0 auto;
 
     ul {
 
@@ -13,48 +13,27 @@
             padding: 20px;
             display: flex;
             align-items: center;
-            background-color: lightcyan;
             text-decoration: none;
             color: #000;
             position: relative;
+            transition: all 200ms ease-in-out;
+
+            a {
+                text-decoration: none;
+                color: #111;
+                font-family: sans-serif;
+                font-size: 20px;
+                font-weight: 200;
+            }
 
             .right {
                 position: absolute;
                 right: 20px;
-
-            }
-
-            .deleteBTN {
-                position: absolute;
-                right: 20px;
-                cursor: pointer;
-            }
-            
-            input {
-                margin: 0 20px;
+                color: #111;
+                font-family: sans-serif;
+                font-size: 20px;
+                font-weight: 200;
             }
         }
-
-        li:nth-child(odd) {
-            background-color: lightblue;
-        }
-        
-        li.strike {
-            text-decoration: line-through;
-        }
-    }
-
-    .backBTN, .addItemBTN {
-        width: 100px;
-        height: 50px;
-        margin: 20px auto;
-        border: solid 1px #000;
-        border-radius: 6px;
-        background-color: #999;
-        font-family: sans-serif;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
 }

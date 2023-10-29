@@ -1,0 +1,18 @@
+#home {
+    ul {
+        li{
+            background-color: rgba($color: #F08080, $alpha: .25);
+        }
+
+        li:nth-child(odd) {
+            background-color: rgba($color: #000, $alpha: .1)
+        }
+
+        li:hover {
+            transform: translateY(-4px);
+            transform: translateX(-4px);
+            box-shadow: 7px 7px 4px rgba($color: #999, $alpha: .5);
+            z-index: 1;
+        }
+    }
+}

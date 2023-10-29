@@ -1,0 +1,132 @@
+#detail {
+    ul {
+        li {
+            background-color: rgba($color: 	#007dff, $alpha: .25);
+
+            input {
+                margin: 0 20px;
+            }
+
+            span {
+                color: #111;
+                font-family: sans-serif;
+                font-size: 20px;
+                font-weight: 200;
+            }
+
+            .deleteBTN {
+                position: absolute;
+                right: 20px;
+                cursor: pointer;
+                background-color: #fff;
+                border: solid 1px #111;
+                border-radius: 3px;
+                color: #111;
+                font-family: sans-serif;
+                font-size: 20px;
+                font-weight: 200;
+                padding: 5px;
+                transition: all 200ms ease-in-out;
+            }
+
+            .deleteBTN:hover {
+                transform: translateY(-4px);
+                transform: translateX(-4px);
+                background-color: rgba($color: #ae0000, $alpha: .7);
+                box-shadow: 7px 7px 4px rgba($color: #999, $alpha: .5);
+                z-index: 1;
+                color: #fff;
+            }
+        }
+
+        li:nth-child(odd) {
+            background-color: rgba($color: #000, $alpha: .1)
+        }
+
+        li.strike {
+            text-decoration: line-through;
+        }
+    }
+
+    .inputArea {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+        background-color: rgba($color: #000, $alpha: .1);
+
+        .addItemInput {
+            display: flex;
+            align-items: center;
+            width: 50%;
+            
+            input {
+                height: 50px;
+                width: 200px;
+                border-radius: 3px;
+                color: #111;
+                font-family: sans-serif;
+                font-size: 20px;
+                font-weight: 200;
+                padding: 10px;
+            }
+
+            .addItemBTN {
+                height: 50px;
+                width: 75px;
+                background-color: #fff;
+                border: solid 2px #000;
+                border-radius: 3px;
+                color: #111;
+                font-family: sans-serif;
+                font-size: 20px;
+                font-weight: 200;
+                padding: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                transition: all 200ms ease-in-out;
+                cursor: pointer;
+            }
+
+            .addItemBTN:hover {
+                transform: translateY(-4px);
+                transform: translateX(-4px);
+                background-color: rgba($color: #2e8b57, $alpha: .7);
+                box-shadow: 7px 7px 4px rgba($color: #999, $alpha: .5);
+                z-index: 1;
+                color: #fff;
+            }
+        }
+
+        .backBTN {
+            height: 50px;
+            width: 75px;
+            background-color: #fff;
+            border: solid 2px #000;
+            border-radius: 3px;
+            color: #111;
+            font-family: sans-serif;
+            font-size: 20px;
+            font-weight: 200;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: all 200ms ease-in-out;
+            cursor: pointer;
+        }
+
+        .backBTN:hover {
+            transform: translateY(-4px);
+            transform: translateX(-4px);
+            background-color: rgba($color: #007dff, $alpha: .7);
+            box-shadow: 7px 7px 4px rgba($color: #999, $alpha: .5);
+            z-index: 1;
+            color: #fff;
+        }
+    }
+}

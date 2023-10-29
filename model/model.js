@@ -555,17 +555,17 @@ var LISTS = [
 // function export to inject html
 export function changeRoute(){
     // declare varibables
-    let hashTag = window.location.hash;
-    let pageID = hashTag.replace("#", "");
+    let hashTag = window.location.hash; //captures hash id
+    let pageID = hashTag.replace("#", ""); //converts hash id to pageID variable
 
-    // change content
+    // change content    
     if(pageID == "detail"){
       $.get(`pages/detail/detail.html`, function(data){
-      $("#app").html(data);
+      $("#app").html(data); // injects detail.html into #app is pageID is detail
       });
     }else{
       $.get(`pages/home/home.html`, function(data){
-      $("#app").html(data);
+      $("#app").html(data);// injects home.html into #app is pageID is NOT detail
       });
     }
 }
@@ -574,15 +574,14 @@ function initListeners() {
     $("#app #home ul li").click(function (e) { 
         let listID = e.currentTarget.id; //click listener - captures element ID
 
-        console.log(listID);
-        
         loadListItems(listID); // passes ID to loadListItems function in model.js
     });
 }
 
 function addBackListener (){
-    $(".backBTN").click(function () {  
+    $(".backBTN").click(function () { //listens for back button click
         $("#app").html(""); // clears html within #app
+
         loadLists(); // runs loadList
     });
 }
@@ -627,37 +626,52 @@ function loadListItems(listID) {
         <li id="${idx}" class="${listItem.checked ? "strike" : ""}" >
         <input ${listItem.checked ? "checked" : ""}  type="checkbox" id="${idx}" name="${listItem.name}">
         <span>${listItem.name}</span>
-        <span id="${idx}" class="deleteBTN">Delete</span></li>`;
+        <div id="${idx}" class="deleteBTN">Delete</div></li>`;
     }); //adds stike class to li, adds checked property to input, houses delete button
     listString += `</ul>
-    <div class="backBTN">BACK</div>
+    <div class="inputArea">
     <div class="addItemInput">
-    <input id="addItem" type="text">
-    <div class="addItemBTN">Add Item</div>
+    <input id="addItem" type="text" placeholder="Add Item...">
+    <div class="addItemBTN">Add</div>
+    </div>
+    <div class="backBTN">Back</div>
     </div>`; //add and back buttons
     
-    $.get(`pages/detail/detail.html`, function(){
-        $("#detail").html(listString);
-        });
-    //invoking functions
-    addBackListener();
-    itemChecked(listIndex);
-    addItem(listIndex);
-    deleteItem(listIndex);
+    $.get(`pages/detail/detail.html`, function(data){
+        $("#app").html(data); //writes detail.html to #app
+        $("#detail").html(listString); //injects into #detail
+        
+        //dynamically change header/footer color
+        $("header").removeClass("bgRed");
+        $("header").addClass("bgBlue");
+        $("footer").removeClass("bgRed");
+        $("footer").addClass("bgBlue");
+
+        //calling functions
+        addBackListener();
+        itemChecked(listIndex);
+        addItem(listIndex);
+        deleteItem(listIndex);
+    });
 }
 
 export function loadLists() {
     let listString = "<ul>";
     $.each(LISTS, function(idx, list) {
-        listString += `<li id="listID-${idx}">${list.name}
+        listString += `<li id="listID-${idx}"><a href="#detail">${list.name}</a>
         <span class="right">Items: ${list.listItems.length}</span></li>`;
     });
     listString += "</ul>";
-    
-    
-    $.get(`pages/home/home.html`, function(){
-        $("#home").html(listString);
-        });
+       
+    $.get(`pages/home/home.html`, function(data){
+        $("#app").html(data); //write home.html to #app
+        $("#home").html(listString); //injects into #home
+        initListeners();
 
-    initListeners();
+        //dynamically change header color
+        $("header").removeClass("bgBlue");
+        $("header").addClass("bgRed");
+        $("footer").removeClass("bgBlue");
+        $("footer").addClass("bgRed");
+        });
 }
